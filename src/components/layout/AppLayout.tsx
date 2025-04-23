@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -49,9 +48,9 @@ const AppLayout = () => {
                         </div>
                         <nav className="flex flex-col space-y-1">
                           <Button 
-                            variant={isActive('/') ? "secondary" : "ghost"} 
+                            variant={isActive('/dashboard') ? "secondary" : "ghost"} 
                             className="justify-start"
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/dashboard')}
                           >
                             <Home className="mr-2 h-4 w-4" />
                             Dashboard
@@ -108,8 +107,8 @@ const AppLayout = () => {
           <nav className="flex justify-around">
             <Button 
               variant="ghost" 
-              className={`flex-1 flex-col py-2 ${isActive('/') ? 'text-primary' : 'text-muted-foreground'}`}
-              onClick={() => navigate('/')}
+              className={`flex-1 flex-col py-2 ${isActive('/dashboard') ? 'text-primary' : 'text-muted-foreground'}`}
+              onClick={() => navigate('/dashboard')}
             >
               <Home className="h-5 w-5 mb-1" />
               <span className="text-xs">Home</span>
@@ -160,9 +159,9 @@ const AppLayout = () => {
               </div>
               <nav className="flex flex-col space-y-1">
                 <Button 
-                  variant={isActive('/') ? "secondary" : "ghost"} 
+                  variant={isActive('/dashboard') ? "secondary" : "ghost"} 
                   className="justify-start"
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/dashboard')}
                 >
                   <Home className="mr-2 h-4 w-4" />
                   Dashboard

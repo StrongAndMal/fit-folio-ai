@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,13 +43,13 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
   
-  return isAuthenticated ? <Navigate to="/" /> : <>{children}</>;
+  return isAuthenticated ? <Navigate to="/dashboard" /> : <>{children}</>;
 };
 
 const AppRoutes = () => (
   <Routes>
     {/* Public routes */}
-    <Route path="/" element={<Index />} />
+    <Route path="/" element={<PublicRoute><Index /></PublicRoute>} />
     <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
     <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
     <Route path="/onboarding" element={<PublicRoute><Onboarding /></PublicRoute>} />
