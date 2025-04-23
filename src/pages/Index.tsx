@@ -4,6 +4,8 @@ import { Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
+import TestimonialsSection from "@/components/landing/TestimonialsSection";
+import PricingSection from "@/components/landing/PricingSection";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -12,6 +14,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <HeroSection />
       <FeaturesSection />
+      <TestimonialsSection />
+      <PricingSection />
       
       {/* CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-fit-purple to-fit-purple-dark text-white">
