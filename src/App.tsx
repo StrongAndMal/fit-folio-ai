@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +21,7 @@ import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
 import Settings from "./pages/Settings";
 import TeamScore from "./pages/TeamScore";
+import Index from "./pages/Index";
 
 // Protected route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -48,13 +48,14 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 const AppRoutes = () => (
   <Routes>
     {/* Public routes */}
+    <Route path="/" element={<Index />} />
     <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
     <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
     <Route path="/onboarding" element={<PublicRoute><Onboarding /></PublicRoute>} />
 
     {/* Protected routes */}
     <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/workouts" element={<Workouts />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
       <Route path="/progress" element={<Progress />} />

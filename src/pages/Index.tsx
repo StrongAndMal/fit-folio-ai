@@ -24,15 +24,24 @@ const Index = () => {
           <p className="text-xl mb-8 opacity-90">
             Join thousands of users who are achieving their fitness goals with FitFolio AI.
           </p>
-          <Button 
-            size="lg" 
-            variant="secondary"
-            onClick={() => navigate('/signup')}
-            className="text-lg animate-fade-in"
-          >
-            Start Your Free Trial
-            <Users className="ml-2 h-5 w-5" />
-          </Button>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button 
+              size="lg" 
+              variant="secondary"
+              onClick={() => navigate('/login')}
+              className="text-lg animate-fade-in"
+            >
+              Sign In
+            </Button>
+            <Button 
+              size="lg" 
+              onClick={() => navigate('/signup')}
+              className="text-lg animate-fade-in bg-fit-purple hover:bg-fit-purple-dark"
+            >
+              Get Started
+              <Users className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
         </div>
       </section>
     </div>
