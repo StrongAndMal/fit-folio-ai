@@ -1,51 +1,45 @@
 
 import React from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Pencil, LogOut, Mail } from "lucide-react";
+import { Pencil, Mail, Phone, User } from "lucide-react";
+import EditableAvatar from "./EditableAvatar";
+import AccountActions from "./AccountActions";
 import { useAuth } from "@/context/AuthContext";
-
-const getInitials = (name: string) => {
-  if (!name) return "U";
-  const parts = name.split(" ");
-  if (parts.length === 1) return parts[0][0]?.toUpperCase() ?? "U";
-  return (
-    (parts[0][0]?.toUpperCase() ?? "") +
-    (parts[1][0]?.toUpperCase() ?? "")
-  );
-};
+import { Button } from "@/components/ui/button";
 
 const ProfileDetails: React.FC = () => {
-  const { user, logout } = useAuth();
-
+  const { user } = useAuth();
   if (!user) return null;
 
+  // Mock callback for avatar edit
+  const handleEditAvatar = () => {
+    alert("Avatar editing is coming soon!");
+  };
+
   return (
-    <div className="flex flex-col items-center py-6">
-      <div className="relative group">
-        <Avatar className="w-20 h-20 ring-4 ring-primary shadow-lg">
-          <AvatarImage src={user.profileImage} alt={user.name} />
-          <AvatarFallback>
-            {getInitials(user.name)}
-          </AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="mt-4 text-center">
-        <div className="text-2xl font-bold text-gradient-primary">{user.name}</div>
-        <div className="text-base text-muted-foreground flex items-center justify-center gap-2 mt-1">
+    <section className="flex flex-col items-center gap-2 w-full">
+      <EditableAvatar src={user.profileImage} name={user.name} onEdit={handleEditAvatar} />
+      <div className="mt-4 text-center flex flex-col gap-1">
+        <div className="text-3xl font-bold text-gradient-primary">{user.name}</div>
+        <div className="flex justify-center items-center gap-1 text-muted-foreground text-base">
           <Mail className="w-4 h-4 text-primary/80" />
           {user.email}
         </div>
+        <div className="flex justify-center items-center gap-1 text-muted-foreground text-sm">
+          <Phone className="w-4 h-4 text-primary/60" />
+          <span className="italic text-gray-400">+1 (555) 000-0000</span> {/* Placeholder */}
+        </div>
       </div>
-      <div className="flex gap-3 mt-6">
-        <Button variant="outline" size="sm" className="hover:scale-105 transition" aria-label="Edit profile">
-          <Pencil className="w-4 h-4 mr-1" /> Edit Profile
-        </Button>
-        <Button variant="destructive" size="sm" onClick={logout} className="hover:scale-105 transition" aria-label="Log out">
-          <LogOut className="w-4 h-4 mr-1" /> Logout
-        </Button>
-      </div>
-    </div>
+      <Button
+        variant="outline"
+        size="sm"
+        className="mt-3 hover:scale-105 transition"
+        aria-label="Edit profile"
+        disabled
+      >
+        <Pencil className="w-4 h-4 mr-1" /> Edit Profile (Coming soon)
+      </Button>
+      <AccountActions />
+    </section>
   );
 };
 
