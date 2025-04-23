@@ -13,6 +13,15 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import Workouts from "./pages/Workouts";
+import WorkoutDetail from "./pages/WorkoutDetail";
+import Progress from "./pages/Progress";
+import ProgressEntryNew from "./pages/ProgressEntryNew";
+import ProgressEntryDetail from "./pages/ProgressEntryDetail";
+import Profile from "./pages/Profile";
+import Onboarding from "./pages/Onboarding";
+import Settings from "./pages/Settings";
+import TeamScore from "./pages/TeamScore";
 
 // Protected route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -41,11 +50,20 @@ const AppRoutes = () => (
     {/* Public routes */}
     <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
     <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
-    
+    <Route path="/onboarding" element={<PublicRoute><Onboarding /></PublicRoute>} />
+
     {/* Protected routes */}
     <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
       <Route path="/" element={<Dashboard />} />
-      {/* Add more protected routes here */}
+      <Route path="/workouts" element={<Workouts />} />
+      <Route path="/workouts/:id" element={<WorkoutDetail />} />
+      <Route path="/progress" element={<Progress />} />
+      <Route path="/progress/new" element={<ProgressEntryNew />} />
+      <Route path="/progress/:entryId" element={<ProgressEntryDetail />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/team-score" element={<TeamScore />} />
+      {/* Add more protected routes here if needed */}
     </Route>
     
     {/* Fallback route */}
