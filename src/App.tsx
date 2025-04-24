@@ -30,6 +30,7 @@ import Upload from './pages/Upload';
 import Subscription from './pages/Subscription';
 import SubscriptionSuccess from './pages/SubscriptionSuccess';
 import SubscriptionCancel from './pages/SubscriptionCancel';
+import Index from "./pages/Index";
 
 // Protected route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -50,12 +51,13 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
   
-  return isAuthenticated ? <Navigate to="/" /> : <>{children}</>;
+  return isAuthenticated ? <Navigate to="/dashboard" /> : <>{children}</>;
 };
 
 const AppRoutes = () => (
   <Routes>
     {/* Public routes */}
+    <Route path="/" element={<PublicRoute><Index /></PublicRoute>} />
     <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
     <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
     <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
@@ -66,7 +68,7 @@ const AppRoutes = () => (
 
     {/* Protected routes */}
     <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/workout-library" element={<WorkoutLibrary />} />
       <Route path="/workouts" element={<Workouts />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
