@@ -1,13 +1,16 @@
-
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
+import animate from "tailwindcss-animate";
 
-export default {
+const config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+		"./index.html",
 	],
 	prefix: "",
 	theme: {
@@ -85,6 +88,9 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			fontFamily: {
+				sans: ["var(--font-sans)", ...fontFamily.sans],
+			},
 			keyframes: {
 				'accordion-down': {
 					from: {
@@ -129,5 +135,13 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		animate,
+		plugin(({ addVariant }) => {
+			addVariant("radix-side-top", '&[data-side="top"]');
+			addVariant("radix-side-bottom", '&[data-side="bottom"]');
+		}),
+	],
 } satisfies Config;
+
+export default config;

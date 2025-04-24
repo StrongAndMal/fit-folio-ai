@@ -1,10 +1,15 @@
-
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Dumbbell, Home, User, LineChart, Menu } from 'lucide-react';
+import { Dumbbell, Home, User, LineChart, Menu, Library, Plus, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const AppLayout = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -57,12 +62,20 @@ const AppLayout = () => {
                             Dashboard
                           </Button>
                           <Button 
+                            variant={isActive('/workout-library') ? "secondary" : "ghost"} 
+                            className="justify-start"
+                            onClick={() => navigate('/workout-library')}
+                          >
+                            <Library className="mr-2 h-4 w-4" />
+                            Workout Library
+                          </Button>
+                          <Button 
                             variant={isActive('/workouts') ? "secondary" : "ghost"} 
                             className="justify-start"
                             onClick={() => navigate('/workouts')}
                           >
                             <Dumbbell className="mr-2 h-4 w-4" />
-                            Workouts
+                            My Workouts
                           </Button>
                           <Button 
                             variant={isActive('/progress') ? "secondary" : "ghost"} 
@@ -71,6 +84,14 @@ const AppLayout = () => {
                           >
                             <LineChart className="mr-2 h-4 w-4" />
                             Progress
+                          </Button>
+                          <Button
+                            variant={location.pathname === '/create-workout' ? 'default' : 'ghost'}
+                            className="w-full justify-start"
+                            onClick={() => navigate('/create-workout')}
+                          >
+                            <Plus className="mr-2 h-4 w-4" />
+                            Create Workout
                           </Button>
                           <Button 
                             variant={isActive('/profile') ? "secondary" : "ghost"} 
@@ -88,12 +109,32 @@ const AppLayout = () => {
                     </div>
                   </SheetContent>
                 </Sheet>
-                <img 
-                  src={user?.profileImage || 'https://images.unsplash.com/photo-1500673922987-e212871fec22'} 
-                  alt="Profile" 
-                  className="h-8 w-8 rounded-full object-cover"
-                  onClick={() => navigate('/profile')}
-                />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <img 
+                        src={user?.profileImage || 'https://images.unsplash.com/photo-1500673922987-e212871fec22'} 
+                        alt="Profile" 
+                        className="h-8 w-8 rounded-full object-cover"
+                      />
+                      <Settings className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors" />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuItem onClick={() => navigate('/profile')}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/settings')}>
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={logout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Logout</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             ) : (
               <Button onClick={() => navigate('/login')}>Sign In</Button>
@@ -116,11 +157,19 @@ const AppLayout = () => {
             </Button>
             <Button 
               variant="ghost" 
+              className={`flex-1 flex-col py-2 ${isActive('/workout-library') ? 'text-primary' : 'text-muted-foreground'}`}
+              onClick={() => navigate('/workout-library')}
+            >
+              <Library className="h-5 w-5 mb-1" />
+              <span className="text-xs">Workout Library</span>
+            </Button>
+            <Button 
+              variant="ghost" 
               className={`flex-1 flex-col py-2 ${isActive('/workouts') ? 'text-primary' : 'text-muted-foreground'}`}
               onClick={() => navigate('/workouts')}
             >
               <Dumbbell className="h-5 w-5 mb-1" />
-              <span className="text-xs">Workouts</span>
+              <span className="text-xs">My Workouts</span>
             </Button>
             <Button 
               variant="ghost" 
@@ -168,12 +217,20 @@ const AppLayout = () => {
                   Dashboard
                 </Button>
                 <Button 
+                  variant={isActive('/workout-library') ? "secondary" : "ghost"} 
+                  className="justify-start"
+                  onClick={() => navigate('/workout-library')}
+                >
+                  <Library className="mr-2 h-4 w-4" />
+                  Workout Library
+                </Button>
+                <Button 
                   variant={isActive('/workouts') ? "secondary" : "ghost"} 
                   className="justify-start"
                   onClick={() => navigate('/workouts')}
                 >
                   <Dumbbell className="mr-2 h-4 w-4" />
-                  Workouts
+                  My Workouts
                 </Button>
                 <Button 
                   variant={isActive('/progress') ? "secondary" : "ghost"} 
@@ -182,6 +239,14 @@ const AppLayout = () => {
                 >
                   <LineChart className="mr-2 h-4 w-4" />
                   Progress
+                </Button>
+                <Button
+                  variant={location.pathname === '/create-workout' ? 'default' : 'ghost'}
+                  className="w-full justify-start"
+                  onClick={() => navigate('/create-workout')}
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create Workout
                 </Button>
                 <Button 
                   variant={isActive('/profile') ? "secondary" : "ghost"} 

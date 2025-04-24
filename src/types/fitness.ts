@@ -1,4 +1,3 @@
-
 export type GoalType = 'weightLoss' | 'muscleGain' | 'toning' | 'endurance';
 
 export interface UserProfile {
@@ -23,9 +22,20 @@ export interface Workout {
   duration: number; // in minutes
   intensity: 'light' | 'moderate' | 'intense';
   category: 'cardio' | 'strength' | 'flexibility' | 'balance' | 'full-body';
+  subCategory?: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   exercises: Exercise[];
-  imageUrl?: string;
-  featured?: boolean;
+  imageUrl: string;
+  createdBy: string;
+  tags: string[];
+  targetMuscles: string[];
+  equipmentNeeded: string[];
+  restTime: string;
+  caloriesBurned: number;
+  popularity: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  searchTerms?: string[];
 }
 
 export interface Exercise {

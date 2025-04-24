@@ -1,0 +1,63 @@
+.ai-analysis-viewer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.analysis-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.pose-canvas {
+  max-width: 600px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.analysis-feedback {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.score {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.score.good {
+  color: #28a745;
+}
+
+.score.warning {
+  color: #ffc107;
+}
+
+.score.poor {
+  color: #dc3545;
+}
+
+.feedback-section,
+.improvements-section {
+  margin-top: 20px;
+}
+
+h3,
+h4 {
+  margin: 0;
+  color: #333;
+}
+
+ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+li {
+  margin: 5px 0;
+  color: #666;
+}

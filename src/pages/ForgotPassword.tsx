@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { resetPassword } from '../services/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dumbbell } from 'lucide-react';
+import { toast } from 'sonner';
 
-const Login = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const { login, loading, authError } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setLoading(true);
     try {
-      await login(email, password);
-      navigate('/');
+      await resetPassword(email);
+      toast.success('Password reset email sent! Check your inbox.');
+      navigate('/login');
     } catch (error) {
-      console.error('Login failed:', error);
-      setError('Login failed. Please check your credentials and try again.');
+      toast.error('Failed to send reset email. Please try again.');
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,17 +35,12 @@ const Login = () => {
           <div className="flex justify-center mb-2">
             <Dumbbell className="h-10 w-10 text-fit-purple" />
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome to FitFolio AI</CardTitle>
+          <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
           <CardDescription>
-            Sign in to your account to continue your fitness journey
+            Enter your email to receive a password reset link
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {(error || authError) && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
-              {error || authError}
-            </div>
-          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -56,32 +53,16 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link to="/forgot-password" className="text-sm text-fit-purple hover:underline">
-                  Forgot password?
-                </Link>
-              </div>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? 'Sending...' : 'Send Reset Link'}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col">
           <div className="mt-2 text-center text-sm">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-fit-purple hover:underline">
-              Sign up
+            Remember your password?{' '}
+            <Link to="/login" className="text-fit-purple hover:underline">
+              Sign in
             </Link>
           </div>
         </CardFooter>
@@ -90,4 +71,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword; 

@@ -1,9 +1,9 @@
-
 import React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Pencil, LogOut, Mail } from "lucide-react";
+import { Pencil, LogOut, Mail, CheckCircle2, AlertCircle } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { Badge } from "@/components/ui/badge";
 
 const getInitials = (name: string) => {
   if (!name) return "U";
@@ -35,6 +35,19 @@ const ProfileDetails: React.FC = () => {
         <div className="text-base text-muted-foreground flex items-center justify-center gap-2 mt-1">
           <Mail className="w-4 h-4 text-primary/80" />
           {user.email}
+          <Badge variant={user.emailVerified ? "default" : "destructive"} className="ml-2">
+            {user.emailVerified ? (
+              <>
+                <CheckCircle2 className="w-3 h-3 mr-1" />
+                Verified
+              </>
+            ) : (
+              <>
+                <AlertCircle className="w-3 h-3 mr-1" />
+                Unverified
+              </>
+            )}
+          </Badge>
         </div>
       </div>
       <div className="flex gap-3 mt-6">

@@ -1,5 +1,4 @@
-
-import { UserProfile, Workout, ProgressEntry } from '../types/fitness';
+import { UserProfile, Workout, Exercise, ProgressEntry } from '../types/fitness';
 
 // Mock user profile data
 export const mockUserProfile: UserProfile = {
@@ -36,6 +35,9 @@ export const mockWorkouts: Workout[] = [
         sets: 3,
         reps: 12,
         muscleGroups: ['quads', 'hamstrings', 'glutes'],
+        equipment: ['barbell', 'weight plates'],
+        videoUrl: 'https://example.com/squats',
+        imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b'
       },
       {
         id: '102',
@@ -44,6 +46,9 @@ export const mockWorkouts: Workout[] = [
         sets: 3,
         reps: 15,
         muscleGroups: ['chest', 'shoulders', 'triceps'],
+        equipment: ['bodyweight'],
+        videoUrl: 'https://example.com/pushups',
+        imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b'
       },
       {
         id: '103',
@@ -128,12 +133,13 @@ export const mockProgressEntries: ProgressEntry[] = [
   {
     id: '1',
     userId: '1',
-    date: '2023-04-01',
+    date: '2023-01-15',
     weight: 90,
-    photos: ['https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'],
-    notes: 'Starting my fitness journey today!',
-    mood: 'good',
+    photos: ['https://images.unsplash.com/photo-1500673922987-e212871fec22'],
+    notes: 'Starting my fitness journey!',
     workouts: ['1'],
+    aiScore: 75,
+    aiAnalysis: 'Good form overall, but could improve on depth in squats.'
   },
   {
     id: '2',
