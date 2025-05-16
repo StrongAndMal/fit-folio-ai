@@ -14,7 +14,7 @@ const SubscriptionSuccess: React.FC = () => {
         <p className="text-gray-600 mb-8">
           Thank you for subscribing to FitFolio AI. You now have access to all premium features.
         </p>
-        <Button onClick={() => navigate('/dashboard')}>
+        <Button onClick={() => navigate('/app/dashboard')}>
           Go to Dashboard
         </Button>
       </div>

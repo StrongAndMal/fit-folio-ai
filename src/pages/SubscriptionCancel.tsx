@@ -18,7 +18,7 @@ const SubscriptionCancel: React.FC = () => {
           <Button variant="outline" onClick={() => navigate('/subscription')}>
             View Plans
           </Button>
-          <Button onClick={() => navigate('/dashboard')}>
+          <Button onClick={() => navigate('/app/dashboard')}>
             Go to Dashboard
           </Button>
         </div>

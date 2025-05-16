@@ -1,49 +1,24 @@
-
-import { Button } from "@/components/ui/button";
-import { Users } from "lucide-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HeroSection from "@/components/landing/HeroSection";
-import FeaturesSection from "@/components/landing/FeaturesSection";
-import TestimonialsSection from "@/components/landing/TestimonialsSection";
-import PricingSection from "@/components/landing/PricingSection";
+import { useAuth } from "@/context/AuthContext";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (isAuthenticated) {
+        navigate("/app/dashboard");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isAuthenticated, loading, navigate]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <HeroSection />
-      <FeaturesSection />
-      <TestimonialsSection />
-      <PricingSection />
-      
-      {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-fit-purple to-fit-purple-dark text-white">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Fitness Journey?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Join thousands of users who are achieving their fitness goals with FitFolio AI.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button 
-              size="lg" 
-              variant="secondary"
-              onClick={() => navigate('/login')}
-              className="text-lg animate-fade-in"
-            >
-              Sign In
-            </Button>
-            <Button 
-              size="lg" 
-              onClick={() => navigate('/signup')}
-              className="text-lg animate-fade-in bg-fit-purple hover:bg-fit-purple-dark"
-            >
-              Get Started
-              <Users className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
+    <div className="flex h-screen items-center justify-center">
+      <div className="animate-pulse">Loading...</div>
     </div>
   );
 };

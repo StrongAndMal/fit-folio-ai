@@ -55,7 +55,7 @@ const WorkoutLibrary = () => {
       
       return getWorkouts(filters, pageParam);
     },
-    getNextPageParam: (lastPage) => lastPage.lastVisible,
+    getNextPageParam: (lastPage) => lastPage.lastVisible || undefined,
     initialPageParam: undefined
   });
 

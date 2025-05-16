@@ -30,6 +30,7 @@ import Upload from './pages/Upload';
 import Subscription from './pages/Subscription';
 import SubscriptionSuccess from './pages/SubscriptionSuccess';
 import SubscriptionCancel from './pages/SubscriptionCancel';
+import LandingPage from "./pages/LandingPage";
 import Index from "./pages/Index";
 
 // Protected route wrapper
@@ -40,7 +41,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
   
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 // Public route wrapper (redirects to dashboard if already logged in)
@@ -51,13 +52,13 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
   
-  return isAuthenticated ? <Navigate to="/dashboard" /> : <>{children}</>;
+  return isAuthenticated ? <Navigate to="/app/dashboard" replace /> : <>{children}</>;
 };
 
 const AppRoutes = () => (
   <Routes>
     {/* Public routes */}
-    <Route path="/" element={<PublicRoute><Index /></PublicRoute>} />
+    <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
     <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
     <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
@@ -67,22 +68,22 @@ const AppRoutes = () => (
     <Route path="/subscription/cancel" element={<SubscriptionCancel />} />
 
     {/* Protected routes */}
-    <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/workout-library" element={<WorkoutLibrary />} />
-      <Route path="/workouts" element={<Workouts />} />
-      <Route path="/workouts/:id" element={<WorkoutDetail />} />
-      <Route path="/progress" element={<Progress />} />
-      <Route path="/progress/new" element={<ProgressEntryNew />} />
-      <Route path="/progress/:entryId" element={<ProgressEntryDetail />} />
-      <Route path="/progress-journal" element={<ProgressJournal />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/team-score" element={<TeamScore />} />
-      <Route path="/create-workout" element={<CreateWorkout />} />
-      <Route path="/upload" element={<Upload />} />
-      <Route path="/subscription" element={<Subscription />} />
-      {/* Add more protected routes here if needed */}
+    <Route path="/app" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+      <Route index element={<Navigate to="/app/dashboard" replace />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="workout-library" element={<WorkoutLibrary />} />
+      <Route path="workouts" element={<Workouts />} />
+      <Route path="workouts/:id" element={<WorkoutDetail />} />
+      <Route path="progress" element={<Progress />} />
+      <Route path="progress/new" element={<ProgressEntryNew />} />
+      <Route path="progress/:entryId" element={<ProgressEntryDetail />} />
+      <Route path="progress-journal" element={<ProgressJournal />} />
+      <Route path="profile" element={<Profile />} />
+      <Route path="settings" element={<Settings />} />
+      <Route path="team-score" element={<TeamScore />} />
+      <Route path="create-workout" element={<CreateWorkout />} />
+      <Route path="upload" element={<Upload />} />
+      <Route path="subscription" element={<Subscription />} />
     </Route>
     
     {/* Fallback route */}
@@ -97,9 +98,9 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
           <BrowserRouter>
+            <Toaster />
+            <Sonner />
             <AppRoutes />
           </BrowserRouter>
         </TooltipProvider>
